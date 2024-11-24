@@ -90,7 +90,6 @@ body{
 .hero .content{
     padding: 1.2rem 7%;
     max-width: 60rem;
-    /* width : 100%; */
     position : fixed;
     top : 30 ;
 }
@@ -120,11 +119,21 @@ body{
     background-color: greenyellow;
     border-radius: 0.5rem;
 }
+/* Container */
+.container {
+    width: 100%;
+    padding-right: 7%;
+    padding-left: 7%;
+    margin-right: auto;
+    margin-left: auto;
+}
+/* Sections */
+.about, .menu, .contact, .products {
+    padding-top: 5.2rem;
+    padding-bottom: 1.4rem;
+}
 
 /* About Section */
-.about , .menu, .contact{
-    padding: 5.2rem 7% 1.4rem;
-}
 .about h2,.menu h2,.contact h2, .products h2{
     text-align: center;
     font-size: 2.6rem;
@@ -160,39 +169,6 @@ body{
     margin-bottom: 0.8rem;
     font-weight: 300;
     line-height: 1.6;
-}
-/* Menu Section */
-.menu h2,.contact h2, .products h2{
-    margin-bottom: 1rem;
-}
-.menu p,.contact p, .products p{
-    text-align: center;
-    max-width: 30rem;
-    font-size: 1.2rem;
-    font-weight: 300;
-    margin: auto;
-    line-height: 2rem;
-}
-
-.menu .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 5rem;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-}
-.menu .row .menu-card{
-    text-align: center;
-
-}
-.menu .row .menu-card img{
-    border-radius: 50%;
-    width: 15rem;
-    height: 15rem;
-}
-.menu .row .menu-card .menu-card-title{
-    margin: 1rem auto 0.5rem;
 }
 
 /* Contact Section */
@@ -246,10 +222,10 @@ body{
 
 /* Products Section */
 .products .row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
-  gap: 1.5rem;
-  margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    gap: 1.5rem;
+    margin-top: 4rem;
 }
 
 .products .product-card {
@@ -258,35 +234,40 @@ body{
   padding: 2rem;
 }
 
-.products .product-icons {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
+.add-to-cart-btn {
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    background-color: var(--primary);
+    color: #fff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
 }
 
-.products .product-icons a {
-  width: 4rem;
-  height: 4rem;
-  color: #fff;
-  margin: 0.3rem;
-  border: 1px solid #666;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.products .product-icons a:hover {
-  background-color: var(--primary);
-  border: 1px solid var(--primary);
+.add-to-cart-btn:hover {
+    background-color: #7d5631;
+    transform: translateY(-2px);
 }
 
 .products .product-image {
-  padding: 1rem 0;
+    padding: 1rem 0;
+    width: 100%;
+    height: 300px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .products .product-image img {
-  height: 25rem;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .products .product-content h3 {
@@ -294,14 +275,14 @@ body{
 }
 
 .products .product-stars {
-  font-size: 1.7rem;
-  padding: 0.8rem;
-  color: var(--primary);
-}
-
-.products .product-stars .star-full {
-  fill: var(--primary);
-}
+    font-size: 1.7rem;
+    padding: 0.8rem;
+    color: var(--primary);
+  }
+  
+  .products .product-stars i {
+    fill: var(--primary);
+  }
 
 .products .product-price {
   font-size: 1.3rem;
@@ -314,6 +295,140 @@ body{
   font-size: 1rem;
 }
 
+/* Shopping Cart */
+.shopping-cart .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+}
+
+.shopping-cart .modal-content {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 400px;
+    height: 100%;
+    background-color: var(--bg);
+    padding: 20px;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.shopping-cart .modal.active .modal-content {
+    transform: translateX(0);
+}
+
+.shopping-cart .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--primary);
+}
+
+.shopping-cart .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.shopping-cart .cart-items {
+    padding: 20px 0;
+}
+
+.shopping-cart .cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+}
+
+.shopping-cart .cart-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.shopping-cart .item-details {
+    flex-grow: 1;
+}
+
+.shopping-cart .item-quantity {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.shopping-cart .quantity-btn {
+    background: var(--primary);
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+.shopping-cart .cart-footer {
+    position: sticky;
+    bottom: 0;
+    background-color: var(--bg);
+    padding-top: 20px;
+    border-top: 1px solid var(--primary);
+}
+
+.shopping-cart .cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.shopping-cart .checkout-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .shopping-cart .modal-content {
+        width: 100%;
+    }
+}
+
+/* Cart Count Badge */
+.navbar-extra #shopping-cart-button {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--primary);
+    color: #fff;
+    font-size: 0.8rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 /* footer */
 footer {
@@ -363,6 +478,10 @@ footer .credit a{
     #hamburger-menu{
         display: inline-block;
     }
+    .container {
+        padding-right: 5%;
+        padding-left: 5%;
+    }
     .navbar .navbar-nav{
         position: absolute;
         top: 100%;
@@ -406,9 +525,6 @@ footer .credit a{
     .about .row .content p{
         font-size: 1.6rem;
     }
-    .menu p{
-        font-size: 1.4rem;
-    }
     .contact .row{
         flex-wrap: wrap;
     }
@@ -423,5 +539,9 @@ footer .credit a{
 @media (max-width: 375px) {
     html {
         font-size: 55%;
+    }
+    .container {
+        padding-right: 4%;
+        padding-left: 4%;
     }
 }

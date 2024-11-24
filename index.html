@@ -12,15 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
         rel="stylesheet">
     <!-- fonts end -->
-    <!-- feather icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
     <!-- style start -->
     <link rel="stylesheet" href="css/style.css">
     <!-- style end -->
-    <!-- alpine js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
-    <!-- app -->
-    <script src="src/app.js"></script>
 </head>
 
 <body>
@@ -33,143 +27,87 @@
             <a href="#about">Tentang Kami</a>
             <a href="#menu">Menu</a>
             <a href="#contact">Kontak</a>
-        </div>
+        </div>        
 
         <div class="navbar-extra">
-            <a href="#" id="search"><i data-feather="search"></i></a>
-            <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
+            <a id="shopping-cart-button">
+                <i data-feather="shopping-cart"></i>
+                <span class="cart-count" x-text="$store.cart.quantity"></span>
+            </a>
             <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
         </div>
-
     </nav>
     <!-- navigasi end -->
+    <div class="shopping-cart">
+        <div class="modal" id="cart-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Keranjang Belanja</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="cart-items">
+                    <!-- Item Keranjang akan dinamis ditampilkan oleh javascript -->
+                </div>
+                <div class="cart-footer">
+                    <div class="cart-total">
+                        <h4>Total:</h4>
+                        <p id="cart-total-amount">Rp 0</p>
+                    </div>
+                    <button class="checkout-btn">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Section Hero Start-->
     <section class="hero" id="home">
         <main class="content">
             <h1>Nikmati Secangkir <span>Kopi</span></h1>
             <h1>Bagai Seorang <span>Priyayi</span></h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, perferendis.</p>
-
+            <p>Rasakan pengalaman menikmati kopi premium dengan suasana klasik Jawa yang mewah dan elegan.</p>
         </main>
     </section>
     <!-- Section Hero end -->
     <!-- Section About start -->
-    <section id="about" class="about">
+    <section id="about" class="about container">
         <h2><span>Tentang</span> Kami</h2>
-
         <div class="row">
             <div class="about-img">
                 <img src="img/tentang-kami.jpg" alt="Tentang Kami">
             </div>
             <div class="content">
                 <h3>Kenapa Memilih Kopi Kami?</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, veniam dolore! Dolores voluptates alias
-                    aliquam.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem, repudiandae.</p>
+                <p>Kopi Monarki menghadirkan pengalaman menikmati kopi premium dengan sentuhan budaya Jawa yang klasik. Setiap biji kopi kami dipilih dari perkebunan terbaik di Indonesia dan diolah oleh barista berpengalaman.</p>
+                <p>Kami menggabungkan cita rasa kopi modern dengan nuansa tradisional Jawa untuk menciptakan suasana yang nyaman dan berkelas. Nikmati berbagai pilihan kopi kami sambil merasakan atmosfer keagungan budaya Jawa.</p>
             </div>
         </div>
     </section>
     <!-- Section About End -->
 
-    <!-- Section Menu Start -->
-    <section id="menu" class="menu">
-        <h2><span>Menu</span> Kami</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, dolorem. Necessitatibus quibusdam culpa
-            quaerat quae.</p>
-
-        <div class="row">
-            <div class="menu-card">
-                <img src="img/americano.png" alt="Americano" class="menu-card-img" srcset="">
-                <h3 class="menu-card-title">Americano</h3>
-                <p class="menu-card-price">IDR 22.5 K</p>
-            </div>
-
-            <div class="menu-card">
-                <img src="img/cappucino.png" alt="cappucino" class="menu-card-img" srcset="">
-                <h3 class="menu-card-title">Cappucino</h3>
-                <p class="menu-card-price">IDR 25 K</p>
-            </div>
-
-            <div class="menu-card">
-                <img src="img/espresso.png" alt="Espresso" class="menu-card-img" srcset="">
-                <h3 class="menu-card-title">Espresso</h3>
-                <p class="menu-card-price">IDR 20 K</p>
-            </div>
-
-            <div class="menu-card">
-                <img src="img/flatwhite.png" alt="Flat White" class="menu-card-img" srcset="">
-                <h3 class="menu-card-title">Flat White</h3>
-                <p class="menu-card-price">IDR 26 K</p>
-            </div>
-
-            <div class="menu-card">
-                <img src="img/latte.png" alt=Latte" class="menu-card-img" srcset="">
-                <h3 class="menu-card-title">Latte</h3>
-                <p class="menu-card-price">IDR 23 K</p>
-            </div>
-
-            <div class="menu-card">
-                <img src="img/machiatto.png" alt="Machiatto" class="menu-card-img" srcset="">
-                <h3 class="menu-card-title">Machiatto</h3>
-                <p class="menu-card-price">IDR 27 K</p>
-            </div>
-
-            <div class="menu-card">
-                <img src="img/mocha.png" alt="Mocha" class="menu-card-img" srcset="">
-                <h3 class="menu-card-title">Mocha</h3>
-                <p class="menu-card-price">IDR 20 K</p>
-            </div>
-
-        </div>
-
-    </section>
-    <!-- Section Menu End -->
     <!-- Product Section Start -->
-    <section class="products" id="products" x-data="products">
+    <section class="products container" id="products" x-data="products">
         <h2><span>Produk Unggulan</span> Kami</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo unde eum, ab fuga possimus iste.</p>
-
+        <p>Temukan berbagai pilihan kopi premium kami, mulai dari kopi lokal pilihan hingga racikan khas internasional yang diolah dengan standar tinggi untuk memastikan kualitas terbaik.</p>
+    
         <div class="row">
-            <template x-for="(item,index) in items" x-key="index">
-                <div class="product-card">
-                    <div class="product-icons">
-                        <a href="#"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <use href="img/feather-sprite.svg#shopping-cart" />
-                            </svg></a>
-                        <a href="#" class="item-detail-button"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <use href="img/feather-sprite.svg#eye" />
-                            </svg></a>
-                    </div>
+            <template x-for="(item, index) in items" :key="index">
+                <div class="product-card" x-effect="feather.replace()">                    
                     <div class="product-image">
                         <img :src="`img/products/${item.img}`" :alt="item.name">
                     </div>
                     <div class="product-content">
                         <h3 x-text="item.name"></h3>
                         <div class="product-stars">
-                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <use href="img/feather-sprite.svg#star" />
-                            </svg>
-                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <use href="img/feather-sprite.svg#star" />
-                            </svg>
-                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <use href="img/feather-sprite.svg#star" />
-                            </svg>
-                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <use href="img/feather-sprite.svg#star" />
-                            </svg>
-                            <svg width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <use href="img/feather-sprite.svg#star" />
-                            </svg>
+                            <i data-feather="star"></i>
+                            <i data-feather="star"></i>
+                            <i data-feather="star"></i>
+                            <i data-feather="star"></i>
+                            <i data-feather="star"></i>
                         </div>
                         <div class="product-price" x-text="rupiah(item.price)"></div>
+                        <button class="add-to-cart-btn" @click="$store.cart.add(item)">
+                            <i data-feather="shopping-cart"></i>
+                            Tambah Keranjang
+                        </button>
                     </div>
                 </div>
             </template>
@@ -178,10 +116,9 @@
     <!-- Product Section End -->
 
     <!-- Section Contact Start -->
-    <section id="contact" class="contact">
+    <section id="contact" class="contact container">
         <h2><span>Kontak</span> Kami</h2>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium, debitis.</p>
-
+        <p>Hubungi kami untuk informasi lebih lanjut tentang produk, layanan, atau kerjasama. Tim kami siap membantu Anda.</p>
         <div class="row">
             <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253073.7320901246!2d111.2073035728239!3d-7.653328895092803!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7993db547298f3%3A0x3027a76e352beb0!2sKabupaten%20Magetan%2C%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1676989651447!5m2!1sid!2sid"
@@ -230,10 +167,13 @@
 
     </footer>
     <!-- footer end -->
-    <!-- feather-icons -->
-    <script>
-        feather.replace()
-    </script>
+
+    <!-- alpine js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js" ></script>
+    <!-- app -->
+    <script src="src/app.js"></script>
+    <!-- feather icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
     <!-- My javascript -->
     <script src="js/script.js"></script>
 </body>
