@@ -10,13 +10,31 @@ document.addEventListener('click', function (e) {
     }
 })
 document.addEventListener('DOMContentLoaded', function () {
+    const cartStore = Alpine.store('cart');
     const cartButton = document.querySelector('#shopping-cart-button');
     const modal = document.querySelector('#cart-modal');
     const closeBtn = modal.querySelector('.close-btn');
     const cartItems = modal.querySelector('.cart-items');
     const cartTotalAmount = document.querySelector('#cart-total-amount');
+    const cartQuantity = document.querySelector('#cart-quantity');
+    const orderModal = document.getElementById('order-modal');
+    const checkoutBtn = document.querySelector('.checkout-btn');
+    const closeOrderBtn = document.querySelector('.close-order-btn');
+    const confirmOrderBtn = document.querySelector('.confirm-order-btn');
 
     feather.replace();
+    // Cart
+    function updateCartQuantityDisplay() {
+        cartQuantity.textContent = cartStore.quantity;
+    }
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('.add-to-cart-btn')) {
+            setTimeout(() => {
+                updateCartQuantityDisplay();
+                feather.replace();
+            }, 0);
+        }
+    });
     cartButton.addEventListener('click', () => {
         modal.style.display = 'block';
         setTimeout(() => modal.classList.add('active'), 10);
@@ -34,9 +52,64 @@ document.addEventListener('DOMContentLoaded', function () {
             setTimeout(() => modal.style.display = 'none', 300);
         }
     });
+    // Order
+    checkoutBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+        orderModal.style.display = 'block';
+        updateOrderSummary();
+    })
+    closeOrderBtn.addEventListener('click', () => {
+        orderModal.style.display = 'none';
+    })
+    function updateOrderSummary() {
+        const orderItems = document.querySelector('.order-items');
+        const subtotalAmount = document.getElementById('subtotal-amount');
+        const taxAmount = document.getElementById('tax-amount');
+        const finalTotalAmount = document.getElementById('final-total-amount');
+        orderItems.innerHTML = '';
+        cartStore.items.forEach(item => {
+            const orderItem = document.createElement('div');
+            orderItem.innerHTML = `
+            <div class="item-info">
+                <img src="img/products/${item.img}" alt="${item.name}"  />
+                <div>
+                <h4>${item.name}</h4>
+                <p>${item.quantity}x ${rupiah(item.price)}</p>
+                </div>
+            </div>
+            <div class="item-total">
+                ${rupiah(item.price * item.quantity)}
+            </div>
+            `
+            orderItems.appendChild(orderItem);
+        })
+        const subtotal = cartStore.total;
+        const shipping = 10000;
+        const tax = subtotal * 0.11;
+        const finalTotal = subtotal + shipping + tax;
 
+        subtotalAmount.textContent = rupiah(subtotal);
+        taxAmount.textContent = rupiah(tax);
+        finalTotalAmount.textContent = rupiah(finalTotal);
+    }
+    confirmOrderBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const form = document.getElementById('customer-form');
+        if (!form.checkValidity()) {
+            alert('Mohon lengkapi semua informasi yang diperlukan');
+            return;
+        }
+
+        const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+        alert('Pesanan Anda telah berhasil dikonfirmasi! Terima kasih telah berbelanja di Kopi Monarki.');
+
+        Alpine.store('cart').clear();
+        updateCartQuantityDisplay();
+        orderModal.style.display = 'none';
+    });
     function updateCartDisplay() {
-        const cartStore = Alpine.store('cart');
         cartItems.innerHTML = '';
 
         cartStore.items.forEach((item, index) => {
@@ -56,8 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             cartItems.appendChild(cartItem);
         });
-
         cartTotalAmount.textContent = rupiah(cartStore.total);
+        updateCartQuantityDisplay();
 
         cartItems.querySelectorAll('.quantity-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -71,4 +144,18 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+    // Product
+    document.addEventListener('show-modal', () => {
+        document.querySelector('#product-modal').style.display = 'block';
+    });
+
+    const observer = new MutationObserver(() => {
+        feather.replace();
+    });
+
+    observer.observe(document.querySelector('.product-modal-content'), {
+        childList: true,
+        subtree: true
+    });
+    updateCartQuantityDisplay();
 });
